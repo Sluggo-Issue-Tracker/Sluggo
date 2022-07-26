@@ -54,7 +54,7 @@ jobs:
         rsync -avz ./imgs ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/imgs
         rsync -avz ./Sluggo ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/Sluggo
     - name: Run the software!
-      uses: appleboy/ssh-action@v0
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
