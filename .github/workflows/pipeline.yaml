@@ -31,6 +31,7 @@ jobs:
         ref: main
     - name: Build the Img for API
       run: >
+        echo ${{ secrets.API_ENV }} > ./Sluggo-API/.env
         docker build ./Sluggo-API --file ./Sluggo-API/Dockerfile
         --tag sluggo-api:$(date +%s) --tag sluggo-api:develop
     - name: Build the Img for SPA
