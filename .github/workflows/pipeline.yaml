@@ -1,9 +1,19 @@
 name: Sluggo CI
 
 on:
-
+  # configure manual parameters
   workflow_dispatch:
-    
+    inputs:
+      api_ref:
+        description: 'branch or commit sha of Sluggo-API to run against'
+        type: environment
+        required: true
+        default: 'develop'
+      spa_ref:
+        description: 'branch or commit sha of Sluggo-SPA to run against'
+        type: environment
+        required: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,22 +24,22 @@ jobs:
       with:
         repository: Sluggo-Issue-Tracker/Sluggo-API
         path: ./Sluggo-API
+        ref: $API_REF
         # using the current branch
     - name: Checkout Sluggo-SPA
       uses: actions/checkout@v3
       with:
         repository: Sluggo-Issue-Tracker/Sluggo-SPA
         path: ./Sluggo-SPA
-        ref: develop # will need to change later, deployed env only develop
+        ref: $SPA_REF # will need to change later, deployed env only develop
     - name: Checkout Sluggo
       uses: actions/checkout@v3
       with:
         repository: Sluggo-Issue-Tracker/Sluggo
         path: ./Sluggo
-        ref: main
+        ref: ${{ github.branch }}
     - name: Build the Img for API
       run: >
-        echo ${{ secrets.API_ENV }} > ./Sluggo-API/.env
         docker build ./Sluggo-API --file ./Sluggo-API/Dockerfile
         --tag sluggo-api:$(date +%s) --tag sluggo-api:develop
     - name: Build the Img for SPA
@@ -48,6 +58,8 @@ jobs:
         known_hosts: 'placeholder'
     - name: Adding Known Hosts
       run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+    - name: Copy env file to Sluggo dir
+      run : echo ${{ secrets.API_ENV }} > ./Sluggo/.env
     - name: Upload images and Sluggo files with rsync
       run: |
         rsync -avz ./imgs ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
