@@ -51,8 +51,8 @@ jobs:
       run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     - name: Upload images and Sluggo files with rsync
       run: |
-        rsync -avz ./imgs ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/imgs
-        rsync -avz ./Sluggo ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/Sluggo
+        rsync -avz ./imgs ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
+        rsync -avz ./Sluggo ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
     - name: Run the software!
       uses: appleboy/ssh-action@master
       with:
