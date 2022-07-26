@@ -22,13 +22,13 @@ jobs:
       with:
         repository: Sluggo-Issue-Tracer/Sluggo-SPA
         path: ./Sluggo-SPA
-        branch: develop # will need to change later, deployed env only develop
+        ref: develop # will need to change later, deployed env only develop
     - name: Checkout Sluggo
       uses: actions/checkout@v3
       with:
         repository: Sluggo-Issue-Tracker/Sluggo
         path: ./Sluggo
-        branch: main
+        ref: main
     - name: Build the Img for API
       run: >
         docker build ./Sluggo-API --file ./Sluggo-API/Dockerfile
