@@ -1,4 +1,4 @@
-name: Sluggo API CI
+name: Sluggo CI
 
 on:
   push:
