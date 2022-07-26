@@ -58,6 +58,7 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           docker load < ~/imgs/sluggo-api.tar.gz
           docker load < ~/imgs/sluggo-spa.tar.gz
