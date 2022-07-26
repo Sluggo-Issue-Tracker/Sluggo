@@ -6,13 +6,14 @@ on:
     inputs:
       api_ref:
         description: 'branch or commit sha of Sluggo-API to run against'
-        type: environment
+        type: string
         required: true
         default: 'develop'
       spa_ref:
         description: 'branch or commit sha of Sluggo-SPA to run against'
-        type: environment
+        type: string
         required: true
+        default: 'develop'
 
 jobs:
   build:
@@ -24,14 +25,14 @@ jobs:
       with:
         repository: Sluggo-Issue-Tracker/Sluggo-API
         path: ./Sluggo-API
-        ref: $API_REF
+        ref: ${{ inputs.api_ref }}
         # using the current branch
     - name: Checkout Sluggo-SPA
       uses: actions/checkout@v3
       with:
         repository: Sluggo-Issue-Tracker/Sluggo-SPA
         path: ./Sluggo-SPA
-        ref: $SPA_REF # will need to change later, deployed env only develop
+        ref: ${{ inputs.spa_ref }}
     - name: Checkout Sluggo
       uses: actions/checkout@v3
       with:
