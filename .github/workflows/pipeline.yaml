@@ -42,11 +42,11 @@ jobs:
     - name: Build the Img for API
       run: >
         docker build ./Sluggo-API --file ./Sluggo-API/Dockerfile
-        --tag sluggo-api:$(date +%s) --tag sluggo-api:develop
+        --tag sluggo-api:$(date +%s) --tag sluggo-api:develop --tag sluggo-api
     - name: Build the Img for SPA
       run: >
         docker build ./Sluggo-SPA --file ./Sluggo-SPA/Dockerfile
-        --tag sluggo-spa:$(date +%s) --tag sluggo-spa:develop
+        --tag sluggo-spa:$(date +%s) --tag sluggo-spa:develop --tag sluggo-spa
     - name: Save both imgs to directory
       run: |
         mkdir ./imgs
