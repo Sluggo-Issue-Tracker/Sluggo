@@ -1,9 +1,7 @@
 name: Sluggo CI
 
 on:
-  push:
-    branches: [ "main" ]
-  
+
   workflow_dispatch:
     
 jobs:
