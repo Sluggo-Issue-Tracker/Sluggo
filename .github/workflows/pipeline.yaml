@@ -43,6 +43,8 @@ jobs:
       run: >
         docker build ./Sluggo-API --file ./Sluggo-API/Dockerfile
         --tag sluggo-api
+    - name: Copy env file to SPA dir
+      run : echo "${{ secrets.SPA_ENV }}" > ./Sluggo-SPA/.env
     - name: Build the Img for SPA
       run: >
         docker build ./Sluggo-SPA --file ./Sluggo-SPA/Dockerfile
