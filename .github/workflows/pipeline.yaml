@@ -72,7 +72,8 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          zcat ~/imgs/sluggo-api.tar.gz | docker import - sluggo-api
-          zcat ~/imgs/sluggo-spa.tar.gz | docker import - sluggo-spa
+          docker load ~/imgs/sluggo-api.tar.gz sluggo-api
+          docker load ~/imgs/sluggo-spa.tar.gz sluggo-spa
           cd ~/Sluggo
+          docker-compose down
           docker-compose up -d

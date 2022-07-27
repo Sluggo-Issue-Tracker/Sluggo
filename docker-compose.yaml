@@ -6,15 +6,10 @@ services:
                 ports:
                         - "8000:8000"
                 env_file: ./.env
-                command: >
-                        /usr/bin/sh -c "python manage.py makemigrations && 
-                                python manage.py migrate && 
-                                python manage.py runserver 0.0.0.0:8000"
                 volumes:
                         - /home/sam/dev/Sluggo-API/db.sqlite3:/app/db.sqlite3
         nginx:
                 image: sluggo-spa:latest
-                command: nginx -g daemon off;
                 volumes:
                         - ./confs/nginx.conf:/etc/nginx/nginx.conf:ro
                 ports:
