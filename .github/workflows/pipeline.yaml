@@ -50,8 +50,8 @@ jobs:
     - name: Save both imgs to directory
       run: |
         mkdir ./imgs
-        docker save sluggo-api:develop | gzip > ./imgs/sluggo-api.tar.gz
-        docker save sluggo-spa:develop | gzip > ./imgs/sluggo-spa.tar.gz
+        docker save sluggo-api | gzip > ./imgs/sluggo-api.tar.gz
+        docker save sluggo-spa | gzip > ./imgs/sluggo-spa.tar.gz
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
       with:
@@ -72,8 +72,8 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          docker load ~/imgs/sluggo-api.tar.gz sluggo-api
-          docker load ~/imgs/sluggo-spa.tar.gz sluggo-spa
+          docker load < ~/imgs/sluggo-api.tar.gz
+          docker load < ~/imgs/sluggo-spa.tar.gz
           cd ~/Sluggo
           docker-compose down
           docker-compose up -d
