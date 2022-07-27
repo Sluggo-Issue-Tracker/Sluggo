@@ -8,13 +8,17 @@ services:
                 env_file: ./.env
                 volumes:
                         - /home/sam/dev/Sluggo-API/db.sqlite3:/app/db.sqlite3
+                        - static_volume:/usr/share/nginx/html/
         nginx:
                 image: sluggo-spa:latest
                 volumes:
                         - ./confs/nginx.conf:/etc/nginx/nginx.conf:ro
+                        - static_volume:/usr/share/nginx/html/
                 ports:
                         - "80:80"
                         - "443:443"
                 depends_on:
                         - django
 
+volumes:
+        static_volume:
