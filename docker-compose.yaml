@@ -7,7 +7,7 @@ services:
                         - "8000:8000"
                 env_file: ./.env
                 volumes:
-                        - /home/sam/dev/Sluggo-API/db.sqlite3:/app/db.sqlite3
+                        - ~/volumes/db.sqlite3:/app/db.sqlite3
                         - static_volume:/usr/share/nginx/html/
         nginx:
                 image: sluggo-spa:latest
