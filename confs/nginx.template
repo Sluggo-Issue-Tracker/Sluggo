@@ -9,8 +9,32 @@ http {
     }
 
     server {
+        listen 80;
+        server_name ${NGINX_HOST}
+        server_tokens off;
 
-        listen                80;
+        location /.well-known/acme-challenge/ {
+            root /var/www/certbot;
+        }
+
+        location / {
+            # redirect to https
+            return 301 https://$host$request_uri;
+        }
+    }
+
+    server {
+
+        listen                443 ssl;
+        server_name ${NGINX_HOST}
+        server_tokens off
+
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+        # path to certificate stuff
+        ssl_certificate /etc/letsencrypt/live/${NGINX_HOST}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/${NGINX_HOST}/privkey.pem;
 
         root                  /usr/share/nginx/html/;
         index                 index.html;
