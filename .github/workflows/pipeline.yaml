@@ -78,6 +78,7 @@ jobs:
           docker load < ~/imgs/sluggo-spa.tar.gz
           cd ~/Sluggo
           ./init-letsencrypt.sh
+          export NGINX_HOST=${{ secrets.NGINX_HOST }}
           envsubst '${NGINX_HOST}'' < ./confs/nginx.template > ./confs/nginx.conf
           docker-compose down -v
           docker-compose up -d
